@@ -83,7 +83,6 @@ class ProfileController extends GetxController {
         .then((value) {
       Get.back();
       if (value.status.isOk) {
-        print(value.body);
         dataResponse.value = {
           'value': value.body['value'],
           'message': value.body['message']

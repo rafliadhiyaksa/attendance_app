@@ -58,8 +58,8 @@ class ProfilePage extends StatelessWidget {
       ),
       backgroundColor: primary,
       body: SmartRefresher(
-        controller: authCon.refreshCon,
-        onRefresh: () => authCon.onRefresh(),
+        controller: authCon.profileRefresh,
+        onRefresh: () => authCon.onRefresh('profile'),
         header: const ClassicHeader(),
         child: SingleChildScrollView(
           child: Container(
@@ -223,7 +223,6 @@ class ProfilePage extends StatelessWidget {
                                   );
                                 }).toList(),
                                 onchanged: (value) {
-                                  print(value);
                                   formCon.setProvinsi(value);
                                   formCon.setKota("");
                                   formCon.setKec("");
@@ -276,7 +275,6 @@ class ProfilePage extends StatelessWidget {
                                   );
                                 }).toList(),
                                 onchanged: (value) {
-                                  print(value);
                                   formCon.setKec(value);
                                   formCon.setKel("");
                                   profilCon.dataKelurahan.value = [];
@@ -298,7 +296,6 @@ class ProfilePage extends StatelessWidget {
                                   );
                                 }).toList(),
                                 onchanged: (value) {
-                                  print(value);
                                   formCon.setKel(value);
                                 },
                               ),
@@ -391,14 +388,22 @@ class ProfilePage extends StatelessWidget {
                           width: (context.width - 20) * 0.4,
                           height: (context.width - 20) * 0.4,
                           child: authCon.user.value.profilImg == null
-                              ? Image.asset(
-                                  "assets/image/profile.png",
-                                  fit: BoxFit.cover,
+                              ? Container(
+                                  color: Colors.grey,
+                                  child: Center(
+                                      child: Image.asset(
+                                    "assets/image/profile.png",
+                                    height: 90,
+                                  )),
                                 )
                               : authCon.user.value.profilImg!.isEmpty
-                                  ? Image.asset(
-                                      "assets/image/profile.png",
-                                      fit: BoxFit.cover,
+                                  ? Container(
+                                      color: Colors.grey,
+                                      child: Center(
+                                          child: Image.asset(
+                                        "assets/image/profile.png",
+                                        height: 90,
+                                      )),
                                     )
                                   : Image.memory(authCon.user.value.profilImg!,
                                       fit: BoxFit.cover),

@@ -18,7 +18,6 @@ class PresensiProvider extends GetConnect {
       "STATUS_USER": status,
     });
     var response = await post(BaseUrl.presensiAPI, body);
-    print(response.body);
     return response;
   }
 

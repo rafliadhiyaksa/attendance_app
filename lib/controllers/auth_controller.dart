@@ -16,23 +16,26 @@ class AuthController extends GetxController {
   var user = User().obs;
   var listDataWajah = <Wajah>[].obs;
   var dataWajah = Wajah().obs;
-  var isLoading = true.obs;
 
   var tempDataUser = User().obs;
   var tempDataWajah = Wajah().obs;
   var uint8ListWajah = Uint8List(0).obs;
 
   //refresh controller
-  RefreshController refreshCon = RefreshController();
+  RefreshController homeRefresh = RefreshController();
+  RefreshController profileRefresh = RefreshController();
 
-  void onRefresh() async {
+  void onRefresh(page) async {
     try {
-      await Future.delayed(const Duration(milliseconds: 500));
       getUser(user.value.idUser);
-
-      refreshCon.refreshCompleted();
+      await Future.delayed(const Duration(seconds: 1));
+      page == 'home'
+          ? homeRefresh.refreshCompleted()
+          : profileRefresh.refreshCompleted();
     } catch (e) {
-      refreshCon.refreshFailed();
+      page == 'home'
+          ? homeRefresh.refreshFailed()
+          : profileRefresh.refreshFailed();
     }
   }
 

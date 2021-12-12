@@ -147,7 +147,6 @@ class RegistrationController extends GetxController {
     )
         .then((value) {
       if (value.status.isOk) {
-        print(value.body);
         dataResponse.value = value.body;
         if (dataResponse['value'] == 1) {
           // registrasi wajah

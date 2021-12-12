@@ -181,7 +181,6 @@ class FaceRecognitionService {
       return predRes;
     } else {
       print("jalankan presensi");
-      print("${authC.dataWajah.value.idUser}");
 
       double minDist = 999;
       double currDist = 0.0;

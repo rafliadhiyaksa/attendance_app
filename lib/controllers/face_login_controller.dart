@@ -139,7 +139,6 @@ class FaceLoginController extends GetxController {
           }
           _detectingFaces = false;
         } catch (e) {
-          print(e);
           _detectingFaces = false;
         }
       }

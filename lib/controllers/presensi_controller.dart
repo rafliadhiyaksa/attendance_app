@@ -220,8 +220,8 @@ class PresensiController extends GetxController {
 
   void onRefresh(int idUser) async {
     try {
-      await Future.delayed(const Duration(milliseconds: 500));
       getPresensi(idUser);
+      await Future.delayed(const Duration(seconds: 1));
       refreshCon.refreshCompleted();
     } catch (e) {
       refreshCon.refreshFailed();
@@ -297,7 +297,6 @@ class PresensiController extends GetxController {
       update();
     } else {
       if (now.isBetween(start, end)) {
-        print('JALANKAN');
         PresensiProvider()
             .presensiMasuk(authCon.user.value.idUser!,
                 now.isBetween(start, onTime) ? 1 : 2)
@@ -358,7 +357,6 @@ class PresensiController extends GetxController {
         var tanggal =
             DateFormat('EEEE, d MMMM yyyy', 'id_ID').format(DateTime.now());
         var data = dataPresensi.where((element) => element.tanggal == tanggal);
-        print('Presensi Pulang');
         bool bolos = false;
         data.map((e) {
           if (e.jamMasuk == '-') {
@@ -437,7 +435,6 @@ class PresensiController extends GetxController {
               _dataResponse = value.body;
               if (dataResponse['value'] == 1) {
                 List data = dataResponse['data'];
-                print(data);
                 for (var element in data) {
                   var presensi = Presensi(
                     id: jsonDecode(element['ID_ABSENSI']),

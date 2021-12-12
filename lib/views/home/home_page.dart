@@ -1,8 +1,7 @@
 // ignore_for_file: invalid_use_of_protected_member
 
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_shimmer/flutter_shimmer.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -30,9 +29,9 @@ class HomePage extends StatelessWidget {
     initializeDateFormatting();
     return Scaffold(
       body: SmartRefresher(
-        controller: authCon.refreshCon,
+        controller: authCon.homeRefresh,
         onRefresh: () {
-          authCon.onRefresh();
+          authCon.onRefresh('home');
           Get.arguments != null
               ? presCon.onRefresh(Get.arguments)
               : presCon.onRefresh(authCon.user.value.idUser!);
@@ -242,6 +241,8 @@ class HomePage extends StatelessWidget {
                       ),
                     ],
                   ),
+
+                  // info akun
                   GetX<AuthController>(
                     initState: (_) {
                       if (Get.arguments != null) {
@@ -266,65 +267,81 @@ class HomePage extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(20),
-                                  child: Container(
-                                    color: Colors.white,
-                                    width: (context.width - 20) * 0.35,
-                                    height: (context.width - 20) * 0.35,
-                                    child: authCon.user.value.profilImg == null
-                                        ? Image.asset(
-                                            "assets/image/profile.png",
-                                            fit: BoxFit.cover,
-                                          )
-                                        : authCon.user.value.profilImg!.isEmpty
-                                            ? Image.asset(
-                                                "assets/image/profile.png",
-                                                fit: BoxFit.cover,
-                                              )
-                                            : Image.memory(
-                                                authCon.user.value.profilImg!,
-                                                fit: BoxFit.cover),
-                                  ),
-                                ),
-                                const SizedBox(width: 15),
-                                Expanded(
-                                  child: Column(
+                            authCon.user.value.idUser == null
+                                ? const ProfileShimmer(
+                                    isRectBox: true,
+                                  )
+                                : Row(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text(
-                                          "${authCon.user.value.namaDepan} ${authCon.user.value.namaBelakang}"
-                                              .toUpperCase(),
-                                          style: const TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 17)),
-                                      const SizedBox(
-                                        height: 15,
+                                      ClipRRect(
+                                        borderRadius: BorderRadius.circular(20),
+                                        child: Container(
+                                          color: Colors.grey,
+                                          width: (context.width - 20) * 0.35,
+                                          height: (context.width - 20) * 0.35,
+                                          child: authCon.user.value.profilImg ==
+                                                  null
+                                              ? Container(
+                                                  color: Colors.grey,
+                                                  child: Center(
+                                                      child: Image.asset(
+                                                    "assets/image/profile.png",
+                                                    height: 80,
+                                                  )),
+                                                )
+                                              : authCon.user.value.profilImg!
+                                                      .isEmpty
+                                                  ? Container(
+                                                      color: Colors.grey,
+                                                      child: Center(
+                                                          child: Image.asset(
+                                                        "assets/image/profile.png",
+                                                        height: 80,
+                                                      )),
+                                                    )
+                                                  : Image.memory(
+                                                      authCon.user.value
+                                                          .profilImg!,
+                                                      fit: BoxFit.cover),
+                                        ),
                                       ),
-                                      Text(
-                                        "${authCon.user.value.email}",
-                                        style: TextStyle(
-                                            color: Colors.grey.shade600,
-                                            fontSize: 13),
-                                      ),
-                                      const SizedBox(
-                                        height: 5,
-                                      ),
-                                      Text(
-                                        "${authCon.user.value.noHp}",
-                                        style: TextStyle(
-                                            color: Colors.grey.shade600,
-                                            fontSize: 13),
+                                      const SizedBox(width: 15),
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                                "${authCon.user.value.namaDepan} ${authCon.user.value.namaBelakang}"
+                                                    .toUpperCase(),
+                                                style: const TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 17)),
+                                            const SizedBox(
+                                              height: 15,
+                                            ),
+                                            Text(
+                                              "${authCon.user.value.email}",
+                                              style: TextStyle(
+                                                  color: Colors.grey.shade600,
+                                                  fontSize: 13),
+                                            ),
+                                            const SizedBox(
+                                              height: 5,
+                                            ),
+                                            Text(
+                                              "${authCon.user.value.noHp}",
+                                              style: TextStyle(
+                                                  color: Colors.grey.shade600,
+                                                  fontSize: 13),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ],
                                   ),
-                                ),
-                              ],
-                            ),
                             const SizedBox(
                               height: 10,
                             ),
