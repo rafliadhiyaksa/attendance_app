@@ -195,6 +195,10 @@ class PresensiPage extends StatelessWidget {
                                   style: const TextStyle(fontSize: 14),
                                 ),
                                 Text(
+                                  '> ${presCon.dataSetting.presensiPulang} : Pulang',
+                                  style: const TextStyle(fontSize: 14),
+                                ),
+                                Text(
                                   '> ${presCon.dataSetting.batasPresensiMasuk} : Bolos Presensi',
                                   style: const TextStyle(fontSize: 14),
                                 ),

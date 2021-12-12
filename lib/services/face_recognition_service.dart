@@ -97,10 +97,11 @@ class FaceRecognitionService {
 
     imglib.Image cropImage = imglib.copyCrop(
         convertedImage, x.round(), y.round(), w.round(), h.round());
-    imglib.Image cropImage2 = imglib.copyResizeCropSquare(cropImage, 420);
+    // imglib.Image cropSquare = imglib.copyResizeCropSquare(cropImage, 420);
+    imglib.Image flipImage = imglib.flipHorizontal(cropImage);
 
     imglib.PngEncoder pngEncoder = imglib.PngEncoder(filter: 0, level: 0);
-    List<int> img = pngEncoder.encodeImage(cropImage2);
+    List<int> img = pngEncoder.encodeImage(flipImage);
     authC.imgWajah(Uint8List.fromList(img));
 
     return imglib.copyCrop(

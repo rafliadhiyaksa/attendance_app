@@ -143,7 +143,7 @@ class PresensiController extends GetxController {
             } else {
               i++;
               print("WAJAH TIDAK SESUAI");
-              if (i == 3) {
+              if (i == 5) {
                 await Future.delayed(const Duration(milliseconds: 800));
                 await _cameraService.cameraController!.stopImageStream();
                 await Future.delayed(const Duration(milliseconds: 300));

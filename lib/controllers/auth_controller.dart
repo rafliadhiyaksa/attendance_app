@@ -29,6 +29,7 @@ class AuthController extends GetxController {
     try {
       await Future.delayed(const Duration(milliseconds: 500));
       getUser(user.value.idUser);
+
       refreshCon.refreshCompleted();
     } catch (e) {
       refreshCon.refreshFailed();
@@ -150,7 +151,6 @@ class AuthController extends GetxController {
   }
 
   Future<void> getUser(id) async {
-    print(id);
     UserProvider().getData(id).then((value) {
       if (value.status.isOk) {
         List data = value.body['data'];
@@ -175,7 +175,6 @@ class AuthController extends GetxController {
           );
         }
         WajahProvider().getDataWajah(id).then((value) {
-          print(id);
           if (value.status.isOk) {
             List data = value.body['data'];
             for (var element in data) {

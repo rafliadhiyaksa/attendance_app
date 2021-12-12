@@ -13,7 +13,10 @@ class FacePainter extends CustomPainter {
     if (face == null) return;
 
     Paint paint;
-    if (face!.headEulerAngleY! > 10 || face!.headEulerAngleZ! < -10) {
+    if (face!.headEulerAngleY! > 10 ||
+        face!.headEulerAngleY! < -10 ||
+        face!.headEulerAngleZ! < -10 ||
+        face!.headEulerAngleZ! > 10) {
       paint = Paint()
         ..style = PaintingStyle.stroke
         ..strokeWidth = 3.0
